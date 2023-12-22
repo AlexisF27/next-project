@@ -17,7 +17,8 @@ function NotePad() {
     const fetchMovies = async () => {
       try {
         const apiKey = "e43f1b43";
-
+        const apiKey1 = process.env.REACT_APP_API_KEY;
+        
         if (!apiKey) {
           console.error('OMDb API key is missing. Make sure to set REACT_APP_OMDB_API_KEY in your .env file.');
           return;
@@ -27,6 +28,8 @@ function NotePad() {
 
         if (response.data.Response === 'True') {
           setMovies(response.data.Search.slice(0, 10));
+          console.log(apiKey, apiKey1)
+          console.log(response.data.Search.slice(0, 10))
         } else {
           console.error(response.data.Error);
         }
@@ -50,7 +53,7 @@ function NotePad() {
                 <CardActionArea>
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                      {movies.Title}
+                      {movie.Title}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                       Lizards are a widespread group of squamate reptiles, with over 6,000
