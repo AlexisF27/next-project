@@ -1,5 +1,5 @@
 
-import { Container, Box, Rating, Card, CardActionArea, CardContent, Typography, Grid } from "@mui/material"
+import { Container, Box, Rating, Card, CardActionArea, CardContent, Typography, Grid, CardMedia } from "@mui/material"
 import MovieUtils from "../../utils/Movies/MovieUtils";
 
 import { useState, useEffect } from 'react';
@@ -19,22 +19,24 @@ function NotePad() {
         console.error('Error fetching data:', error);
       }
     }
-
     getMovies()
   }, []);
-
-  console.log(movies)
 
   return (
     <>
 
-      <Container sx={{ paddingTop: '200px'}} >
+      <Container sx={{ paddingTop: '200px' }} >
         <Box sx={{ bgcolor: '#cfe8fc' }}>
           <Grid container spacing={4}>
             {movies.map((movie) => ((
-              <Grid key={movie.imdbID} xs={6} md={4}>
-                <Card sx={{ maxWidth: 345, border: 2, margin: 2}}>
+              <Grid key={movie.imdbID} item xs={6} md={4}>
+                <Card sx={{ maxWidth: 345, border: 2, margin: 2 }}>
                   <CardActionArea>
+                    <CardMedia
+                      sx={{ height: 250 }}
+                      image={movie.Poster}
+                      title={movie.Title}
+                    />
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="div">
                         {movie.Title}
@@ -45,15 +47,16 @@ function NotePad() {
                       </Typography>
                     </CardContent>
                   </CardActionArea>
+                  <Rating value={4} sx={{ margin: 2 }} />
                 </Card>
-                <Rating value={4} />
+
               </Grid>
 
 
             )))}
 
           </Grid>
-          
+
 
         </Box>
       </Container>
