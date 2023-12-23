@@ -1,12 +1,10 @@
+import { Box, Container, Grid } from "@mui/material"
+import { useEffect, useState } from 'react';
 
-import { Container, Box, Rating, Card, CardActionArea, CardContent, Typography, Grid, CardMedia } from "@mui/material"
+import MovieCard from "../movieCard/MovieCard";
 import MovieUtils from "../../utils/Movies/MovieUtils";
 
-import { useState, useEffect } from 'react';
-
-
 function NotePad() {
-
 
   const [movies, setMovies] = useState([]);
 
@@ -23,44 +21,15 @@ function NotePad() {
   }, []);
 
   return (
-    <>
-
-      <Container sx={{ paddingTop: '200px' }} >
-        <Box sx={{ bgcolor: '#cfe8fc' }}>
-          <Grid container spacing={4}>
-            {movies.map((movie) => ((
-              <Grid key={movie.imdbID} item xs={6} md={4}>
-                <Card sx={{ maxWidth: 345, border: 2, margin: 2 }}>
-                  <CardActionArea>
-                    <CardMedia
-                      sx={{ height: 250 }}
-                      image={movie.Poster}
-                      title={movie.Title}
-                    />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
-                        {movie.Title}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                        species, ranging across all continents except Antarctica
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                  <Rating value={4} sx={{ margin: 2 }} />
-                </Card>
-
-              </Grid>
-
-
-            )))}
-
-          </Grid>
-
-
-        </Box>
-      </Container>
-    </>
+    <Container sx={{ paddingTop: '200px' }} >
+      <Box sx={{ bgcolor: '#cfe8fc' }}>
+        <Grid container spacing={4}>
+          {movies.map((movie) => ((
+            <MovieCard key={movie.imdbID} movie={movie} />
+          )))}
+        </Grid>
+      </Box>
+    </Container>
   )
 }
 
