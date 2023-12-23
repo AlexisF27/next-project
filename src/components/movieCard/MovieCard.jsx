@@ -19,15 +19,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types'
 import { useState } from 'react';
 
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialogContent-root': {
-    padding: theme.spacing(2),
-  },
-  '& .MuiDialogActions-root': {
-    padding: theme.spacing(1),
-  },
-}));
-
 function MovieCard({ movie }) {
 
   const [open, setOpen] = useState(false);
@@ -62,17 +53,13 @@ function MovieCard({ movie }) {
       </Grid >
 
 
-      <BootstrapDialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
+      <Dialog onClose={handleClose} open={open}>
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
           Modal title
         </DialogTitle>
         <IconButton
           aria-label="close"
-
+          onClick={handleClose}
           sx={{
             position: 'absolute',
             right: 8,
@@ -103,7 +90,7 @@ function MovieCard({ movie }) {
             Save changes
           </Button>
         </DialogActions>
-      </BootstrapDialog>
+      </Dialog>
     </>
 
 
