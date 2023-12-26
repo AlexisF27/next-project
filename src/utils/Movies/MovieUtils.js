@@ -1,7 +1,4 @@
-
-
 import axios from 'axios';
-
 
 class MovieUtils {
 
@@ -16,7 +13,7 @@ class MovieUtils {
       }
       
 
-      const response = await axios.get(`http://www.omdbapi.com/?apikey=${API_KEY}&s=movie&page=1&plot=full`);
+      const response = await axios.get(`https://www.omdbapi.com/?apikey=${API_KEY}&s=movie&page=1&plot=full`);
 
       if (response.data.Response === 'True') {
         console.log(response.data.Search)
