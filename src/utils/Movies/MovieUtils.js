@@ -12,7 +12,6 @@ class MovieUtils {
         return;
       }
       
-
       const response = await axios.get(`https://www.omdbapi.com/?apikey=${API_KEY}&s=movie&page=1&plot=full`);
 
       if (response.data.Response === 'True') {
