@@ -9,12 +9,29 @@ import {
 } from "@mui/material"
 
 import DialogMovie from "../dialogMovie/DialogMovie";
+import MovieUtils from "../../utils/Movies/MovieUtils";
 import PropTypes from 'prop-types'
+import { useEffect } from "react";
 import { useState } from 'react';
 
 function MovieCard({ movie }) {
 
   const [open, setOpen] = useState(false);
+
+  const [movieDetail, setMovieDetail] = useState([]);
+
+  useEffect(() => {
+    const getMovieDetail = async () => {
+      try {
+        const result = await MovieUtils.fetchMovieDetail(movie.imdbID);
+        setMovieDetail(result)
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+    getMovieDetail()
+  },[movie]);
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -24,13 +41,14 @@ function MovieCard({ movie }) {
   };
 
 
+
   return (
     <>
       <Grid key={movie.imdbID} item xs={6} md={4}>
         <Card sx={{ maxWidth: 345, border: 2, margin: 2 }}>
           <CardActionArea>
             <CardMedia
-              sx={{ height: 350 }}
+              sx={{ height: 300 }}
               image={movie.Poster}
               title={movie.Title}
               onClick={handleClickOpen}
@@ -44,7 +62,7 @@ function MovieCard({ movie }) {
           <Rating value={4} sx={{ margin: 2 }} />
         </Card>
       </Grid >
-      <DialogMovie open={open} handleClose={handleClose}></DialogMovie>
+      <DialogMovie movieDetail={movieDetail} open={open} handleClose={handleClose}></DialogMovie>
     </>
 
 
@@ -54,7 +72,7 @@ function MovieCard({ movie }) {
 
 
 MovieCard.propTypes = {
-  movie: PropTypes.array,
+  movie: PropTypes.object.isRequired,
 
 }
 

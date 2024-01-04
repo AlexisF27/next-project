@@ -1,5 +1,7 @@
 import {
+  Box,
   Button,
+  CardMedia,
   Dialog,
   DialogActions,
   DialogContent,
@@ -10,14 +12,17 @@ import {
 
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types'
+import { useState } from 'react';
 
-function DialogMovie({ open, handleClose}) {
+function DialogMovie({ movieDetail, open, handleClose }) {
+
+  
+
+
   return (
-
-
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-        Modal title
+        {movieDetail.Title}
       </DialogTitle>
       <IconButton
         aria-label="close"
@@ -30,22 +35,21 @@ function DialogMovie({ open, handleClose}) {
         }}
       >
         <CloseIcon />
+
+
+
       </IconButton>
       <DialogContent dividers>
-        <Typography gutterBottom>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </Typography>
-        <Typography gutterBottom>
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-        </Typography>
-        <Typography gutterBottom>
-          Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
-          ullamcorper nulla non metus auctor fringilla.
-        </Typography>
+        <CardMedia
+          sx={{ height: 650, border: 50, backgroundColor: "white" }}
+          image={movieDetail.Poster}
+          title={movieDetail.Title}
+        />
+        
+        {Object.entries(movieDetail).map(([key, data]) => (
+          <Typography key={key}> {key}: {data}</Typography>
+        ))}
+
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={handleClose}>
@@ -58,6 +62,7 @@ function DialogMovie({ open, handleClose}) {
 }
 
 DialogMovie.propTypes = {
+  movieDetail: PropTypes.object,
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired
 }
