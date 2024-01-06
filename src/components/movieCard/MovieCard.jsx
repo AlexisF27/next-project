@@ -9,28 +9,19 @@ import {
 } from "@mui/material"
 
 import DialogMovie from "../dialogMovie/DialogMovie";
-import MovieUtils from "../../utils/Movies/MovieUtils";
 import PropTypes from 'prop-types'
-import { useEffect } from "react";
 import { useState } from 'react';
 
 function MovieCard({ movie }) {
 
   const [open, setOpen] = useState(false);
 
-  const [movieDetail, setMovieDetail] = useState([]);
 
-  useEffect(() => {
-    const getMovieDetail = async () => {
-      try {
-        const result = await MovieUtils.fetchMovieDetail(movie.imdbID);
-        setMovieDetail(result)
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    }
-    getMovieDetail()
-  },[movie]);
+  // useEffect(() => {
+  //   getMovieDetail()
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
 
 
   const handleClickOpen = () => {
@@ -62,7 +53,8 @@ function MovieCard({ movie }) {
           <Rating value={4} sx={{ margin: 2 }} />
         </Card>
       </Grid >
-      <DialogMovie movieDetail={movieDetail} open={open} handleClose={handleClose}></DialogMovie>
+
+      {open ? <DialogMovie imdbID={movie.imdbID} open={open} handleClose={handleClose} /> : null}
     </>
 
 

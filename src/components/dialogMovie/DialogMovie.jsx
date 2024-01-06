@@ -9,14 +9,32 @@ import {
   IconButton,
   Typography
 } from "@mui/material"
+import { useEffect, useState } from "react";
 
 import CloseIcon from '@mui/icons-material/Close';
+import MovieUtils from "../../utils/Movies/MovieUtils";
 import PropTypes from 'prop-types'
 
-function DialogMovie({ movieDetail, open, handleClose }) {
+function DialogMovie({ imdbID, open, handleClose }) {
+
+
+  const [movieDetail, setMovieDetail] = useState({});
+
+  const getMovieDetail = async (imdbID) => {
+    try {
+      const result = await MovieUtils.fetchMovieDetail(imdbID);
+      setMovieDetail(result)
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
+  useEffect(() => {
+    getMovieDetail(imdbID)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   console.log(Object.entries(movieDetail))
-
 
   return (
     <Dialog onClose={handleClose} open={open}>
@@ -44,9 +62,11 @@ function DialogMovie({ movieDetail, open, handleClose }) {
           image={movieDetail.Poster}
           title={movieDetail.Title}
         />
-
-        {Object.values(movieDetail).map(key => (
-          <><Typography key={key}> {key} </Typography></>
+        {Object.keys(movieDetail).filter(key => (key !== 'Ratings' && key !== 'Poster')).map(key => (
+          <>
+            <Typography key={key} sx={{ fontWeight: 'bold'}}>{key}:</Typography>
+            <Typography key={key + 'Detail'}>{movieDetail[key]}</Typography>
+          </>
         ))}
 
       </DialogContent>
@@ -61,7 +81,7 @@ function DialogMovie({ movieDetail, open, handleClose }) {
 }
 
 DialogMovie.propTypes = {
-  movieDetail: PropTypes.object,
+  imdbID: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired
 }
