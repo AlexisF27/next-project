@@ -12,11 +12,10 @@ import {
 
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types'
-import { useState } from 'react';
 
 function DialogMovie({ movieDetail, open, handleClose }) {
 
-  
+  console.log(Object.entries(movieDetail))
 
 
   return (
@@ -45,9 +44,9 @@ function DialogMovie({ movieDetail, open, handleClose }) {
           image={movieDetail.Poster}
           title={movieDetail.Title}
         />
-        
-        {Object.entries(movieDetail).map(([key, data]) => (
-          <Typography key={key}> {key}: {data}</Typography>
+
+        {Object.values(movieDetail).map(key => (
+          <><Typography key={key}> {key} </Typography></>
         ))}
 
       </DialogContent>
