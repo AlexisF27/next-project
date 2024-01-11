@@ -16,14 +16,6 @@ function MovieCard({ movie }) {
 
   const [open, setOpen] = useState(false);
 
-
-  // useEffect(() => {
-  //   getMovieDetail()
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
-
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -56,8 +48,6 @@ function MovieCard({ movie }) {
 
       {open ? <DialogMovie imdbID={movie.imdbID} open={open} handleClose={handleClose} /> : null}
     </>
-
-
 
   )
 }

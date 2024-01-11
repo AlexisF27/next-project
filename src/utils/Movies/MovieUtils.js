@@ -2,7 +2,7 @@ import axios from 'axios';
 
 class MovieUtils {
 
-  static fetchMovies = async () => {
+  static fetchMovies = async (searchInput) => {
     try {
 
       const API_KEY = import.meta.env.VITE_APP_API_KEY;
@@ -11,8 +11,9 @@ class MovieUtils {
         console.error('OMDb API key is missing. Make sure to set REACT_APP_OMDB_API_KEY in your .env file.');
         return;
       }
+      console.log(searchInput);
       
-      const response = await axios.get(`https://www.omdbapi.com/?apikey=${API_KEY}&s=movie&page=1&plot=full`);
+      const response = await axios.get(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${searchInput}`);
 
       if (response.data.Response === 'True') {
         return response.data.Search;

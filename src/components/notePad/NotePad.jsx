@@ -3,22 +3,28 @@ import { useEffect, useState } from 'react';
 
 import MovieCard from "../movieCard/MovieCard";
 import MovieUtils from "../../utils/Movies/MovieUtils";
+import PropTypes from 'prop-types'
 
-function NotePad() {
+function NotePad({inputSearch}) {
 
   const [movies, setMovies] = useState([]);
+
 
   useEffect(() => {
     const getMovies = async () => {
       try {
-        const result = await MovieUtils.fetchMovies();
+        console.log(inputSearch);
+        const result = await MovieUtils.fetchMovies(inputSearch);
         setMovies(result)
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
-    getMovies()
-  }, []);
+    if (inputSearch) {
+      getMovies();
+    }
+
+  }, [inputSearch]);
 
   return (
     <Container sx={{ paddingTop: '200px' }} >
@@ -31,6 +37,11 @@ function NotePad() {
       </Box>
     </Container>
   )
+}
+
+NotePad.propTypes = {
+  inputSearch: PropTypes.string.isRequired,
+
 }
 
 export default NotePad

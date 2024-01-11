@@ -20,6 +20,7 @@ function DialogMovie({ imdbID, open, handleClose }) {
 
   const [movieDetail, setMovieDetail] = useState({});
 
+
   const getMovieDetail = async (imdbID) => {
     try {
       const result = await MovieUtils.fetchMovieDetail(imdbID);
@@ -64,7 +65,7 @@ function DialogMovie({ imdbID, open, handleClose }) {
         />
         {Object.keys(movieDetail).filter(key => (key !== 'Ratings' && key !== 'Poster')).map(key => (
           <>
-            <Typography key={key} sx={{ fontWeight: 'bold'}}>{key}:</Typography>
+            <Typography key={key} sx={{ fontWeight: 'bold' }}>{key}:</Typography>
             <Typography key={key + 'Detail'}>{movieDetail[key]}</Typography>
           </>
         ))}
